@@ -1,5 +1,6 @@
 import React from "react"
 import axios from "axios"
+import {authorization, baseUrl} from "../config"
 
 class Login extends React.Component {
     constructor() {
@@ -18,7 +19,7 @@ class Login extends React.Component {
             password: this.state.password
         }
 
-        axios.post(endpoint, request)
+        axios.post(endpoint, request, authorization)
             .then(result => {
                 if (result.data.logged) {
                     // store token in local storage
@@ -26,9 +27,10 @@ class Login extends React.Component {
                     localStorage.setItem(
                         "user", JSON.stringify(result.data.user)
                         )
-                    window.alert("Congratulation! You're logged dude!")
+                    window.alert("Congratulations, you're logged!")
+                    window.location.href = "/"
                 } else {
-                    window.alert("Sorry, your username and password is invalid. Be careful")
+                    window.alert("Sorry, your username and password is incorrect, make sure you have the right one.")
                 }
             })
             .catch(error => console.log(error))
@@ -40,30 +42,38 @@ class Login extends React.Component {
                 <div className="col-lg-6"
                     style={{ margin: "0 auto" }}>
                     <div className="card">
-                        <div className="card-header bg-success">
-                            <h4 className="text-center text-white">Login </h4>
+                        <div className="card-header bg-green">
+                            <h4 className="text-center text-white">Log In</h4>
                         </div>
-                        <div className="card-body">
+                        <div className="card-body bg-login">
                             <form onSubmit={ev => this.loginProcess(ev)}>
                                 Username
-                                <input type="text" className="form-control"
+                                <input type="text" className="form-control mb-2 bg-light"
                                     required value={this.state.username}
-                                    onChange={ev => this.setState({ username: ev.target.value })} />
+                                    onChange={ev => this.setState({ username: ev.target.value })}
+                                />
 
                                 Password
-                                <input type="password" className="form-control md2"
-                                    required value={this.setState.password}
-                                    onChange={ev => this.setState({ password: ev.target.value })} />
+                                <input type="password" className="form-control mb-2 bg-light"
+                                    required value={this.state.password}
+                                    onChange={ev => this.setState({ password: ev.target.value })}
+                                />
 
                                 <button type="submit" className="btn btn-success">
                                     Log In
                                 </button>
-                            </form>
+
+                            </form >
                         </div>
+                    
                     </div>
                 </div>
-            </div>
+            </div >
+
+
+
         )
     }
 }
+
 export default Login

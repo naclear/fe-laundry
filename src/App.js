@@ -1,38 +1,30 @@
-import React from "react";
-import Member from "./pages/Member";
-import Paket from "./pages/Paket";
-import User from "./pages/User";
-import Login from "./pages/Login";
-import Header from "./header";
-import Footer from "./footer";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import logo from './logo.svg';
+import './App.css';
+import './style.css'
+import Navbar from './components/Navbar';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import Member from './pages/Member'
+import Paket from './pages/Paket'
+import Transaksi from './pages/Transaksi'
+import FormTransaksi from './pages/FormTransaksi';
+import User from './pages/User';
+import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
+import SideBar from './pages/SideBar';
 
 export default function App(){
   return(
     <BrowserRouter>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/Member">Member</Link>
-          </li>
-          <li>
-            <Link to="/Paket">Paket</Link>
-          </li>
-          <li>
-            <Link to="/Users">User</Link>
-          </li>
-          
-        </ul>
         <Routes>
-          <Route exact path="/" element={App}></Route>
-          <Route exact path="/Member" element={<Member/>}></Route>
-          <Route exact path="/Paket" element={<Paket/>}></Route>
-          <Route exact path="/Users" element={<User/>}></Route>
+          <Route exact path="/" element={<Navbar> <Dashboard /> </Navbar>} />
+          <Route path="/Member" element={<Navbar> <Member /> </Navbar>} />
+          <Route path="/Paket" element={<Navbar> <Paket /> </Navbar>} />
+          <Route path="/User" element={<Navbar> <User /> </Navbar>} />
+          <Route path="/Transaksi" element={<Navbar> <Transaksi /> </Navbar>} />
+          <Route path="/FormTransaksi" element={<Navbar> <FormTransaksi /> </Navbar>} />
+          <Route path="/Login" element={<Login/>} />
+          {/* <Route path="/sidebar" element={<SideBar/>} /> */}
         </Routes>
-      </div>
     </BrowserRouter>
   )
 }
